@@ -3,12 +3,13 @@ import Like from "./common/like";
 import { getMovies } from "../services/fakeMovieService";
 import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
+import CustomDropDown from "./customDropDown";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
     currentPage:1,
-    pageSize:4
+    pageSize:1
   };
 
   handleDelete = movie => {
@@ -28,17 +29,28 @@ class Movies extends Component {
     this.setState({currentPage:page});
   };
 
+  handleCustomDropDown = (numItemsToDisplay) =>{
+      this.setState({pageSize:numItemsToDisplay})
+  }
+
   render() {
     const {pageSize,currentPage}=this.state;
+
     const { length: count } = this.state.movies;
 
     const moviesCopy=paginate(this.state.movies,currentPage,pageSize);
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
+    
+
     return (
       <React.Fragment>
-        <p>Showing {count} movies in the database.</p>
+        
+       <CustomDropDown onDropChange={this.handleCustomDropDown}></CustomDropDown>
+
+
+        <p>Showing {moviesCopy.length} of {count} movies in the database.</p>
         <table className="table">
           <thead>
             <tr>
