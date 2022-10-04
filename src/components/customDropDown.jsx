@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class CustomDropDown extends Component {
   state = {};
@@ -42,5 +43,9 @@ class CustomDropDown extends Component {
     );
   }
 }
+
+CustomDropDown.propTypes={
+    onDropChange:PropTypes.func
+};
 
 export default CustomDropDown;
