@@ -8,16 +8,16 @@ import CustomDropDown from "./customDropDown";
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    currentPage:1,
-    pageSize:1
+    currentPage: 1,
+    pageSize: 1,
   };
 
-  handleDelete = movie => {
-    const movies = this.state.movies.filter(m => m._id !== movie._id);
+  handleDelete = (movie) => {
+    const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
   };
 
-  handleLike = movie => {
+  handleLike = (movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     movies[index] = { ...movies[index] };
@@ -25,32 +25,32 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handlePageChange = (page)=>{
-    this.setState({currentPage:page});
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
   };
 
-  handleCustomDropDown = (numItemsToDisplay) =>{
-      this.setState({pageSize:numItemsToDisplay})
-  }
+  handleCustomDropDown = (numItemsToDisplay) => {
+    this.setState({ pageSize: numItemsToDisplay });
+  };
 
   render() {
-    const {pageSize,currentPage}=this.state;
+    const { pageSize, currentPage } = this.state;
 
     const { length: count } = this.state.movies;
 
-    const moviesCopy=paginate(this.state.movies,currentPage,pageSize);
+    const moviesCopy = paginate(this.state.movies, currentPage, pageSize);
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
-    
-
     return (
       <React.Fragment>
-        
-       <CustomDropDown onDropChange={this.handleCustomDropDown}></CustomDropDown>
+        <CustomDropDown
+          onDropChange={this.handleCustomDropDown}
+        ></CustomDropDown>
 
-
-        <p>Showing {moviesCopy.length} of {count} movies in the database.</p>
+        <p>
+          Showing {moviesCopy.length} of {count} movies in the database.
+        </p>
         <table className="table">
           <thead>
             <tr>
@@ -63,7 +63,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {moviesCopy.map(movie => (
+            {moviesCopy.map((movie) => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
@@ -86,10 +86,14 @@ class Movies extends Component {
               </tr>
             ))}
           </tbody>
-          </table>
+        </table>
 
-
-          <Pagination itemsCount={count}  pageSize={pageSize} onPageChange={this.handlePageChange} currentPage={currentPage}></Pagination>
+        <Pagination
+          itemsCount={count}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+          currentPage={currentPage}
+        ></Pagination>
       </React.Fragment>
     );
   }
