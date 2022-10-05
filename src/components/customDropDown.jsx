@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class CustomDropDown extends Component {
-  state = {};
+  state = { currentSelection: 4 };
 
   handleChange = (e) => {
     let selectedItem = document.getElementById("customDrop");
     let pageNum = selectedItem.options[selectedItem.selectedIndex].value;
     this.props.onDropChange(pageNum);
+    this.setState({ currentSelection: e.target.value });
   };
 
   render() {
@@ -25,6 +26,7 @@ class CustomDropDown extends Component {
           onChange={this.handleChange}
           className="ml-3 mb-3 mt-3 btn btn-primary"
           name="Page Size"
+          value={this.state.currentSelection}
         >
           {mArray.map((pageNum) => {
             return (
@@ -44,8 +46,8 @@ class CustomDropDown extends Component {
   }
 }
 
-CustomDropDown.propTypes={
-    onDropChange:PropTypes.func
+CustomDropDown.propTypes = {
+  onDropChange: PropTypes.func,
 };
 
 export default CustomDropDown;
