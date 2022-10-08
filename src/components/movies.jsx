@@ -13,6 +13,10 @@ class Movies extends Component {
     pageSize: 4,
   };
 
+  handlePageReset=()=>{
+    this.setState({currentPage:1});
+  }
+
   handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
@@ -53,6 +57,7 @@ class Movies extends Component {
             <div className="col">
               <CustomDropDown
                 onDropChange={this.handleCustomDropDown}
+                onPageReset={this.handlePageReset}
               ></CustomDropDown>
 
               <p>

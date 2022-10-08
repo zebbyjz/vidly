@@ -9,6 +9,7 @@ class CustomDropDown extends Component {
     let pageNum = selectedItem.options[selectedItem.selectedIndex].value;
     this.props.onDropChange(pageNum);
     this.setState({ currentSelection: e.target.value });
+    this.props.onPageReset();
   };
 
   render() {
